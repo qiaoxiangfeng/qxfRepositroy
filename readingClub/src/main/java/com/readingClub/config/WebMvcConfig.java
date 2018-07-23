@@ -14,6 +14,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     private static final String VIEW_SUFFIX = ".html";// 视图后缀
     private static final String VIEW_CONTENT_TYPE = "text/html;charset=UTF-8";//视图的内容类型。
 
+    
 	/**
      * 配置 视图解析器
      * @return

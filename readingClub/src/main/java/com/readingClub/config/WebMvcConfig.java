@@ -1,34 +1,35 @@
 package com.readingClub.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 	
-	private static final String VIEW_PREFIX = "/";// 视图前缀
-    private static final String VIEW_SUFFIX = ".html";// 视图后缀
-    private static final String VIEW_CONTENT_TYPE = "text/html;charset=UTF-8";//视图的内容类型。
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/login").setViewName("/login");
+    }
+    
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        /**
+         * 如果我们将/xxxx/** 修改为 /** 与默认的相同时，则会覆盖系统的配置，可以多次使用 addResourceLocations 添加目录，
+         * 优先级先添加的高于后添加的。
+         *
+         * 如果是/xxxx/** 引用静态资源 加不加/xxxx/ 均可，因为系统默认配置（/**）也会作用
+         * 如果是/** 会覆盖默认配置，应用addResourceLocations添加所有会用到的静态资源地址，系统默认不会再起作用
+         */
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/resources/")
+                .addResourceLocations("classpath:/static/")
+                .addResourceLocations("classpath:/templates/");
+        super.addResourceHandlers(registry);
+    }
 
     
-	/**
-     * 配置 视图解析器
-     * @return
-     */
-    @Bean
-    public ViewResolver viewResolver(){
-
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setCache(true);
-        resolver.setPrefix(VIEW_PREFIX);
-        resolver.setSuffix(VIEW_SUFFIX);
-        resolver.setExposeContextBeansAsAttributes(true);
-        resolver.setContentType(VIEW_CONTENT_TYPE);
-        return resolver;
-    }
+    
 
 }

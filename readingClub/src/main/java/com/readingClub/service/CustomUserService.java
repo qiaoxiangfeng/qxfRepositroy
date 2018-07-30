@@ -5,22 +5,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.readingClub.entity.User;
-import com.readingClub.repository.UserRepository;
+import com.readingClub.entity.sysUser;
+import com.readingClub.repository.SysUserRepository;
 
 public class CustomUserService implements UserDetailsService {
 	@Autowired
-	private UserRepository userRepository;
+	private SysUserRepository userRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		User user=userRepository.findByUsername(username);
+		sysUser user=userRepository.findByUsername(username);
 		if (user == null) {
             throw new UsernameNotFoundException("用户名不存在");
         }
-		System.out.println(username);
 		System.out.println(user.getUsername()+""+user.getPassword());
+		System.out.println("----------锁定状态是"+user.isAccountNonLocked());
 		return user;
 	}
 

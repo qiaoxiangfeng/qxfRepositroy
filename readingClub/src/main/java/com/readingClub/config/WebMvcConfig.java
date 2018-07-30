@@ -13,6 +13,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         registry.addViewController("/login").setViewName("/login");
     }
     
+    
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         /**

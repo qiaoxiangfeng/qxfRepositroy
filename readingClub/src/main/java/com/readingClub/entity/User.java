@@ -15,6 +15,7 @@ import lombok.ToString;
 @Data
 @ToString
 public class User extends BaseEntity {
+	
 	private Integer parentId;
     private String realName;
     private String mobilePhone;

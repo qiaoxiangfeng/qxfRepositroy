@@ -17,23 +17,7 @@
     </style>
 </head>
 <body>
-<div>
-<div th:include="top"></div>
-    <div>
-        <h1 th:text="${msg.title}"></h1>
-        <p th:text="${msg.content}"></p>
-        <div sec:authorize="hasRole('ROLE_ADMIN')">
-            <p th:text="${msg.extraInfo}"></p>
-        </div>
-        <div sec:authorize="hasRole('ROLE_USER')">
-            <p>无更多显示信息</p>
-        </div>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="注销"/>
-            <input type="button" onclick="onc()"/>
-        </form>
-    </div>
-</div>
+<div th:include="top.html"></div>
 </body>
 <script type="text/javascript">
 function onc(){
